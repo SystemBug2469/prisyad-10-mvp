@@ -3,81 +3,147 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Присядь 10 раз</title>
+    <title>Присядь 10 раз — Habit Chain MVP</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="app">
-      <section class="hero card">
-        <div class="hero-icon" aria-hidden="true">🏋️</div>
-        <div>
-          <h1>Присядь 10 раз</h1>
-          <p class="subtitle">Маленькая ежедневная привычка для силы, энергии и здоровья.</p>
-          <p class="today">Сегодня: <span id="today-date"></span></p>
-        </div>
-      </section>
-
-      <section class="card why">
-        <h2>Почему это важно</h2>
+    <section id="onboarding" class="onboarding hidden">
+      <div class="onboarding-card">
+        <h1>Присядь 10 раз</h1>
         <p>
-          Даже 10 приседаний в день помогают разогнать кровь, укрепляют мышцы ног и спины,
-          а ещё дают ощущение «я сделал это» уже с утра.
+          Маленькая привычка — фундамент дисциплины. Сегодня якорь — приседания,
+          а дальше ты соберёшь свою цепочку привычек: как бусины на нити.
         </p>
         <div class="video-wrapper">
           <iframe
             src="https://www.youtube.com/embed/U3HlEF_E9fo"
-            title="Техника приседаний"
+            title="Видео о привычках и технике"
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
         </div>
-      </section>
+        <button id="start-onboarding" class="primary-btn" type="button">Смотреть видео и начать</button>
+      </div>
+    </section>
 
-      <section class="card action">
-        <h2>Действие на сегодня</h2>
+    <main class="app" id="main-app">
+      <header class="card header-card">
+        <p class="greeting" id="greeting">Привет!</p>
+        <p class="today">Сегодня: <span id="today-date"></span></p>
+      </header>
 
-        <div class="stats">
-          <div class="stat-item">
-            <span class="stat-label">Серия</span>
-            <span class="stat-value" id="streak-value">0</span>
+      <section class="card progress-card">
+        <div class="progress-top">
+          <div>
+            <p class="label">Текущий уровень</p>
+            <p class="value" id="level-value">1</p>
           </div>
-          <div class="stat-item">
-            <span class="stat-label">В этом месяце</span>
-            <span class="stat-value" id="month-count-value">0</span>
-          </div>
-        </div>
-
-        <div id="action-state" class="action-state">
-          <button id="done-button" class="done-button" type="button">Я сделал 10 приседаний сегодня</button>
-          <p id="status-text" class="status-text">Статус: ещё не отмечено.</p>
-        </div>
-      </section>
-
-      <section class="card calendar">
-        <div class="calendar-header">
-          <h2>Календарь</h2>
-          <div class="calendar-nav">
-            <button id="prev-month" type="button" aria-label="Предыдущий месяц">←</button>
-            <div id="calendar-title" class="calendar-title"></div>
-            <button id="next-month" type="button" aria-label="Следующий месяц">→</button>
+          <div>
+            <p class="label">Цель на сегодня</p>
+            <p class="value" id="target-value">10</p>
           </div>
         </div>
-
-        <div class="calendar-weekdays" id="calendar-weekdays"></div>
-        <div class="calendar-grid" id="calendar-grid"></div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <p class="progress-caption" id="progress-caption">0/10 до следующего уровня</p>
+        <p class="motivation" id="motivation-text">Один маленький шаг запускает цепочку больших изменений.</p>
       </section>
 
-      <section class="card warmup">
-        <h2>Разминка + техника</h2>
-        <ul>
-          <li>Разогрейся 1–2 минуты: шаг на месте, круговые движения тазом и коленями.</li>
-          <li>Стопы на ширине плеч, носки немного в стороны.</li>
-          <li>Спина ровная, корпус слегка наклонён вперёд, взгляд перед собой.</li>
-          <li>Поднимайся через пятки, не задерживай дыхание: вдох вниз, выдох вверх.</li>
-        </ul>
+      <section class="card action-card">
+        <h2>Якорная привычка: приседания</h2>
+        <div id="daily-action-state"></div>
+      </section>
+
+      <section class="card quick-actions">
+        <h2>Быстрые действия</h2>
+        <div class="quick-grid">
+          <button class="quick-btn" data-modal="technique-modal" type="button">Техника</button>
+          <button class="quick-btn" data-modal="why-modal" type="button">Почему это работает</button>
+          <button class="quick-btn" data-modal="calendar-modal" type="button">Календарь</button>
+          <button class="quick-btn" data-modal="stack-modal" type="button">Мой стек</button>
+          <button class="quick-btn" data-modal="sleep-modal" type="button">Сон и подъем</button>
+          <button class="quick-btn" data-modal="reminders-modal" type="button">Напоминания</button>
+        </div>
       </section>
     </main>
+
+    <div id="technique-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <button class="close-btn" data-close type="button">✕</button>
+        <h3>Техника приседаний</h3>
+        <ul>
+          <li>Стопы на ширине плеч, носки слегка наружу.</li>
+          <li>Спина ровная, корпус стабилен, взгляд вперед.</li>
+          <li>Колени двигаются по линии носков, без завала внутрь.</li>
+          <li>Дыши спокойно: вдох вниз, выдох вверх.</li>
+        </ul>
+        <p class="modal-note">Видео: открой блок онбординга или YouTube по запросу «техника приседаний».</p>
+      </div>
+    </div>
+
+    <div id="why-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <button class="close-btn" data-close type="button">✕</button>
+        <h3>Почему это работает</h3>
+        <p>
+          Короткие, повторяемые действия проще закрепить. Когда ты привязываешь новую привычку
+          к уже существующей (якорю), мозгу легче удерживать рутину и снижать сопротивление.
+        </p>
+        <p>
+          Приседания здесь — стартовый якорь, а ключевой навык — построение стабильной цепочки привычек.
+        </p>
+      </div>
+    </div>
+
+    <div id="calendar-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <button class="close-btn" data-close type="button">✕</button>
+        <h3>Календарь прогресса</h3>
+        <div class="calendar-nav">
+          <button id="prev-month" type="button">←</button>
+          <div id="calendar-title"></div>
+          <button id="next-month" type="button">→</button>
+        </div>
+        <div class="calendar-weekdays" id="calendar-weekdays"></div>
+        <div class="calendar-grid" id="calendar-grid"></div>
+      </div>
+    </div>
+
+    <div id="stack-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <button class="close-btn" data-close type="button">✕</button>
+        <h3>Мой стек привычек</h3>
+        <div id="stack-content"></div>
+      </div>
+    </div>
+
+    <div id="sleep-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <button class="close-btn" data-close type="button">✕</button>
+        <h3>Сон и подъем</h3>
+        <div id="sleep-content"></div>
+      </div>
+    </div>
+
+    <div id="reminders-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <button class="close-btn" data-close type="button">✕</button>
+        <h3>Напоминания</h3>
+        <label class="field-row">
+          <input id="reminders-enabled" type="checkbox" />
+          Включить напоминания
+        </label>
+        <label class="field-row">
+          Время напоминания
+          <input id="reminder-time" type="time" />
+        </label>
+        <button id="save-reminders" class="primary-btn" type="button">Сохранить</button>
+        <p class="modal-note">Telegram-напоминания будут доступны в следующей версии.</p>
+        <p class="modal-note" id="notification-note">Browser Notification API: опционально, без гарантии в текущей версии.</p>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
