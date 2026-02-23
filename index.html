@@ -7,22 +7,26 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="container">
-      <section class="section hero">
-        <h1>Присядь 10 раз</h1>
-        <p class="today">Сегодня: <span id="today-date"></span></p>
+    <main class="app">
+      <section class="hero card">
+        <div class="hero-icon" aria-hidden="true">🏋️</div>
+        <div>
+          <h1>Присядь 10 раз</h1>
+          <p class="subtitle">Маленькая ежедневная привычка для силы, энергии и здоровья.</p>
+          <p class="today">Сегодня: <span id="today-date"></span></p>
+        </div>
       </section>
 
-      <section class="section why">
+      <section class="card why">
         <h2>Почему это важно</h2>
         <p>
-          10 приседаний в день — это маленькая привычка, которая помогает улучшать
-          кровообращение, укреплять ноги и сохранять энергию в течение дня.
+          Даже 10 приседаний в день помогают разогнать кровь, укрепляют мышцы ног и спины,
+          а ещё дают ощущение «я сделал это» уже с утра.
         </p>
         <div class="video-wrapper">
           <iframe
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="YouTube видео о приседаниях"
+            src="https://www.youtube.com/embed/U3HlEF_E9fo"
+            title="Техника приседаний"
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
@@ -30,28 +34,47 @@
         </div>
       </section>
 
-      <section class="section action">
+      <section class="card action">
         <h2>Действие на сегодня</h2>
-        <button id="done-button" class="done-button" type="button">
-          Я сделал 10 приседаний сегодня
-        </button>
-        <p id="status-text" class="status-text">Статус: ещё не отмечено.</p>
-      </section>
 
-      <section class="section calendar">
-        <h2>Календарь</h2>
-        <div class="calendar-placeholder">
-          Здесь будет календарь привычки (скоро).
+        <div class="stats">
+          <div class="stat-item">
+            <span class="stat-label">Серия</span>
+            <span class="stat-value" id="streak-value">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">В этом месяце</span>
+            <span class="stat-value" id="month-count-value">0</span>
+          </div>
+        </div>
+
+        <div id="action-state" class="action-state">
+          <button id="done-button" class="done-button" type="button">Я сделал 10 приседаний сегодня</button>
+          <p id="status-text" class="status-text">Статус: ещё не отмечено.</p>
         </div>
       </section>
 
-      <section class="section warmup">
+      <section class="card calendar">
+        <div class="calendar-header">
+          <h2>Календарь</h2>
+          <div class="calendar-nav">
+            <button id="prev-month" type="button" aria-label="Предыдущий месяц">←</button>
+            <div id="calendar-title" class="calendar-title"></div>
+            <button id="next-month" type="button" aria-label="Следующий месяц">→</button>
+          </div>
+        </div>
+
+        <div class="calendar-weekdays" id="calendar-weekdays"></div>
+        <div class="calendar-grid" id="calendar-grid"></div>
+      </section>
+
+      <section class="card warmup">
         <h2>Разминка + техника</h2>
         <ul>
-          <li>Сделай 1–2 минуты лёгкой разминки перед приседаниями.</li>
-          <li>Держи спину ровной и смотри перед собой.</li>
-          <li>Колени направляй в сторону носков, не заваливай внутрь.</li>
-          <li>Опускайся до комфортной глубины и дыши ровно.</li>
+          <li>Разогрейся 1–2 минуты: шаг на месте, круговые движения тазом и коленями.</li>
+          <li>Стопы на ширине плеч, носки немного в стороны.</li>
+          <li>Спина ровная, корпус слегка наклонён вперёд, взгляд перед собой.</li>
+          <li>Поднимайся через пятки, не задерживай дыхание: вдох вниз, выдох вверх.</li>
         </ul>
       </section>
     </main>
