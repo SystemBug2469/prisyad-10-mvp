@@ -62,8 +62,8 @@ function getCompletedCountForMonth(completedDates, year, month) {
   let count = 0;
 
   completedDates.forEach((isoDate) => {
-    const date = new Date(`${isoDate}T00:00:00`);
-    if (date.getFullYear() === year && date.getMonth() === month) {
+    const [y, m] = isoDate.split('-').map(Number);
+    if (y === year && m - 1 === month) {
       count += 1;
     }
   });
